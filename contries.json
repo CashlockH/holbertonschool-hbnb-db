@@ -1,0 +1,14 @@
+[
+    {
+        "type": "Country",
+        "name": "United States",
+        "code": "US",
+        "cities": []
+    },
+    {
+        "type": "Country",
+        "name": "Canada",
+        "code": "CA",
+        "cities": []
+    }
+]
