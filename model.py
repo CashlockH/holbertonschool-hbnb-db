@@ -29,10 +29,10 @@ class Places():
 
         self.reviews = []
         self.created_at = date.today()
+        self.updated_at = date.today()
     
     def add_review(self, user_id, feedback, rating):
         review = Reviews(user_id, self.id, feedback, rating)
-        self.reviews.append(review)
         return review
 
     def to_dict(self):
@@ -52,7 +52,8 @@ class Places():
             "city_id": str(self.city_id),
             "amenity_ids": [str(amenity_id) for amenity_id in self.amenity_ids],
             "reviews": [review.to_dict() for review in self.reviews],
-            "created_at": str(self.created_at)
+            "created_at": str(self.created_at),
+            "updated_at": str(self.updated_at)
         }
 
     
@@ -65,6 +66,7 @@ class User():
         self.last_name = last_name
         self.password = password
         self.places = []
+        self.reviews = []
         self.created_at = date.today()
         self.updated_at = date.today()
 
@@ -133,13 +135,15 @@ class Amenities():
         self.name = name
         self.id = uuid.uuid4()
         self.created_at = date.today()
+        self.updated_at = date.today()
 
     def to_dict(self):
         return {
             "type": "Amenity",
             "name": self.name,
-            "id": self.id,
-            "created_at": self.created_at
+            "id": str(self.id),
+            "created_at": str(self.created_at),
+            "updated_at": str(self.updated_at)
         }
 
     
@@ -150,11 +154,6 @@ class Country():
         self.code = code
         self.cities = []
         Country.countries.append(self)
-    
-    def new_city(self, name):
-        new = City(name, self.code)
-        self.cities.append(new.name)
-        return new
 
     def to_dict(self):
         return {
@@ -173,6 +172,6 @@ class City():
         return {
             "type": "City",
             "name": self.name,
-            "country": self.country_code,
+            "country_code": self.country_code,
             "id": str(self.id)
         }
